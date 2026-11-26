@@ -67,7 +67,7 @@ client.once('ready', async () => {
       name: 'idk',
       type: ActivityType.Playing
     }],
-    status: 'dnd'
+    status: 'idle'
   });
 });
 
