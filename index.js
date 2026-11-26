@@ -64,7 +64,7 @@ client.once('ready', async () => {
   await registerCommands();
   client.user?.setPresence({
     activities: [{
-      name: 'By GROUP ANMAN #911',
+      name: 'idk',
       type: ActivityType.Playing
     }],
     status: 'dnd'
