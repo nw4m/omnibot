@@ -9,13 +9,13 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('sp')
-    .setDescription('sp')
+    .setName('send')
+    .setDescription('send')
     .setDMPermission(true)
     .addStringOption(opt =>
       opt
         .setName('msg')
-        .setDescription('sp')
+        .setDescription('send')
         .setRequired(true)
     )
     .setIntegrationTypes([1])

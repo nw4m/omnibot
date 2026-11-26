@@ -8,6 +8,7 @@ https://discord.gg/JRkD2gRbzT
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
+  enabled: false,
   data: new SlashCommandBuilder()
     .setName('spx')
     .setDescription('spx')
@@ -27,7 +28,7 @@ module.exports = {
     const button = new ButtonBuilder()
       .setCustomId(`send_4_${Date.now()}`)
       .setLabel('send 4 times')
-      .setStyle(ButtonStyle.Danger);
+      .setStyle(ButtonStyle.Secondary);
 
     const row = new ActionRowBuilder().addComponents(button);
 

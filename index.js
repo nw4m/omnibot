@@ -35,7 +35,7 @@ function loadCommands(dir) {
       loadCommands(fullPath);
     } else if (entry.name.endsWith('.js') && !fullPath.includes('subcommands')) {
       const command = require(fullPath);
-      if (command.data && command.execute) {
+      if (command.data && command.execute && command.enabled !== false) {
         client.commands.set(command.data.name, command);
       }
     }
@@ -76,7 +76,7 @@ client.on('interactionCreate', async interaction => {
 
   if (!OWNERS.includes(interaction.user.id)) {
     if (interaction.isRepliable()) {
-      return interaction.reply({ content: 'This command is owner only!', flags: 64 });
+      return interaction.reply({ content: 'Hmm, sorry, but I can\'t do that command in this version because the code hoster did not grant you permission . You can build your own version from the [source code](https://github.com/nw4m/omnibot) here.', flags: 64 });
     }
     return;
   }

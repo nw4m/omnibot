@@ -35,7 +35,7 @@ module.exports = {
         (text) => text.setContent(`**${fetchedUser.username}**`)
       )
       .addMediaGalleryComponents(
-        new MediaGalleryBuilder().addItems({ url: avatarURL })
+        new MediaGalleryBuilder().addItems([{ media: { url: avatarURL } }])
       )
       .addTextDisplayComponents(
         (text) => text.setContent(`ID: ${fetchedUser.id}`)
@@ -51,7 +51,7 @@ module.exports = {
           (text) => text.setContent(`**${fetchedUser.username}**`)
         )
         .addMediaGalleryComponents(
-          new MediaGalleryBuilder().addItems({ url: bannerURL })
+          new MediaGalleryBuilder().addItems([{ media: { url: bannerURL } }])
         )
         .addTextDisplayComponents(
           (text) => text.setContent(`ID: ${fetchedUser.id}`)
