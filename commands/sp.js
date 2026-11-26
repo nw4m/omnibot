@@ -1,0 +1,27 @@
+const { SlashCommandBuilder } = require('discord.js');
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName('sp')
+    .setDescription('sp')
+    .setDMPermission(true)
+    .addStringOption(opt =>
+      opt
+        .setName('msg')
+        .setDescription('sp')
+        .setRequired(true)
+    )
+    .setIntegrationTypes([1])
+    .setContexts([0, 1, 2]),
+
+  async execute(interaction) {
+    const msg = interaction.options.getString('msg', true);
+
+    await interaction.reply({
+      content: 'Message sent successfully!',
+      flags: 64
+    });
+
+    await interaction.followUp({ content: msg });
+  }
+};

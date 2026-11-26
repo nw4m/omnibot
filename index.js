@@ -1,0 +1,94 @@
+require('dotenv').config();
+
+const { Client, GatewayIntentBits, Routes, ActivityType, Collection } = require('discord.js');
+const { REST } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
+
+const TOKEN = process.env.TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
+const OWNERS = process.env.OWNERS ? process.env.OWNERS.split(',') : [];
+
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.DirectMessages
+  ]
+});
+
+// Load commands from the commands folder
+client.commands = new Collection();
+
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+  const command = require(path.join(commandsPath, file));
+  client.commands.set(command.data.name, command);
+}
+
+const rest = new REST({ version: '10' }).setToken(TOKEN);
+
+const registerCommands = async () => {
+  try {
+    console.log('Registering global commands...');
+    await rest.put(
+      Routes.applicationCommands(CLIENT_ID),
+      { body: client.commands.map(cmd => cmd.data.toJSON()) }
+    );
+    console.log('Global commands registered');
+  } catch (err) {
+    console.error('Error registering commands:', err);
+  }
+};
+
+client.once('ready', async () => {
+  console.log(`Logged in as ${client.user?.tag}`);
+  await registerCommands();
+  client.user?.setPresence({
+    activities: [{
+      name: 'By GROUP ANMAN #911',
+      type: ActivityType.Playing
+    }],
+    status: 'dnd'
+  });
+});
+
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isChatInputCommand() && !interaction.isButton()) return;
+
+  if (!OWNERS.includes(interaction.user.id)) {
+    if (interaction.isRepliable()) {
+      return interaction.reply({ content: 'This command is owner only!', flags: 64 });
+    }
+    return;
+  }
+
+  if (interaction.isChatInputCommand()) {
+    const command = client.commands.get(interaction.commandName);
+    if (!command) return;
+
+    try {
+      await command.execute(interaction);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  if (interaction.isButton()) {
+    // Find the command that handles this button
+    for (const command of client.commands.values()) {
+      if (command.handleButton) {
+        try {
+          await command.handleButton(interaction, client);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+  }
+});
+
+client.login(TOKEN);
