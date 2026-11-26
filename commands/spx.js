@@ -1,3 +1,10 @@
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/
+
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
@@ -34,12 +41,12 @@ module.exports = {
   async handleButton(interaction, client) {
     if (interaction.customId.startsWith('send_4_')) {
       await interaction.deferUpdate().catch(console.error);
-      
+
       const originalContent = interaction.message.content;
       const msg = originalContent.replace('Hidden preview: ', '');
 
       const channel = await client.channels.fetch(interaction.channelId).catch(() => null);
-      
+
       if (channel && 'send' in channel) {
         const promises = [];
         for (let k = 0; k < 4; k++) {
@@ -56,3 +63,10 @@ module.exports = {
     }
   }
 };
+
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/

@@ -1,3 +1,10 @@
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/
+
 const { SlashCommandBuilder, ContainerBuilder, MediaGalleryBuilder, SeparatorBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
@@ -64,3 +71,10 @@ module.exports = {
     }
   }
 };
+
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/

@@ -1,3 +1,10 @@
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/
+
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
@@ -25,3 +32,10 @@ module.exports = {
     await interaction.followUp({ content: msg });
   }
 };
+
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/

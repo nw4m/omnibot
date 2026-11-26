@@ -1,52 +1,29 @@
-// © Author: itsfizys
-// https://discord.gg/aerox
+/*
+by wisky =
 
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/
 
-
-const { ContainerBuilder, TextDisplayBuilder, SeparatorBuilder, SeparatorSpacingSize, MediaGalleryBuilder, MediaGalleryItemBuilder, MessageFlags } = require("discord.js");
-const { getNekoGif } = require('../../../../lib/nekoHelper');
+const { MessageFlags } = require("discord.js");
+const { buildRoleplayResponse } = require("../../../lib/roleplayHelper");
 
 module.exports = {
   async execute(interaction) {
-    const author = interaction.user;
+    const actor = interaction.user;
 
-    await interaction.deferReply({ flags: MessageFlags.IsPersistent | MessageFlags.IsComponentsV2 });
+    await interaction.deferReply({ flags: MessageFlags.IsComponentsV2 });
 
-    const gifUrl = await getNekoGif("laugh");
+    const container = await buildRoleplayResponse("laugh", actor, null, false);
+    if (!container) return interaction.editReply({ content: "Something went wrong." });
 
-    const container = new ContainerBuilder().setAccentColor(0x2B2D31)
-      .addTextDisplayComponents(
-        new TextDisplayBuilder().setContent("# Laughing")
-      )
-      .addSeparatorComponents(
-        new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Small).setDivider(true)
-      );
-
-    if (gifUrl) {
-      container.addMediaGalleryComponents(
-        new MediaGalleryBuilder().addItems([
-          new MediaGalleryItemBuilder().setURL(gifUrl)
-        ])
-      );
-    }
-
-    container.addTextDisplayComponents(
-      new TextDisplayBuilder().setContent(`**${author.username}** is laughing out loud!`)
-    );
-
-    container.addSeparatorComponents(
-      new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Small).setDivider(true)
-    );
-
-    await interaction.editReply({ components: [container], flags: MessageFlags.IsPersistent | MessageFlags.IsComponentsV2 });
+    await interaction.editReply({ components: [container], flags: MessageFlags.IsComponentsV2 });
   }
 };
 
-/**
- * Project: Melon
- * Author: itsfizys (Aegis)
- * Organization: AeroX Development
- * GitHub: https://github.com/itsfizys
- * License: Custom
- * © 2026 AeroX Development. All rights reserved.
- */
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/

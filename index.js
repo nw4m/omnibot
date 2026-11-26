@@ -1,3 +1,10 @@
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/
+
 require('dotenv').config();
 
 const { Client, GatewayIntentBits, Routes, ActivityType, Collection } = require('discord.js');
@@ -18,16 +25,24 @@ const client = new Client({
   ]
 });
 
-// Load commands from the commands folder
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-  const command = require(path.join(commandsPath, file));
-  client.commands.set(command.data.name, command);
+function loadCommands(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      loadCommands(fullPath);
+    } else if (entry.name.endsWith('.js') && !fullPath.includes('subcommands')) {
+      const command = require(fullPath);
+      if (command.data && command.execute) {
+        client.commands.set(command.data.name, command);
+      }
+    }
+  }
 }
+
+loadCommands(path.join(__dirname, 'commands'));
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 
@@ -78,7 +93,6 @@ client.on('interactionCreate', async interaction => {
   }
 
   if (interaction.isButton()) {
-    // Find the command that handles this button
     for (const command of client.commands.values()) {
       if (command.handleButton) {
         try {
@@ -92,3 +106,10 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(TOKEN);
+
+/*
+by wisky =
+
+https://github.com/nw4m/omnibot
+https://discord.gg/JRkD2gRbzT
+*/

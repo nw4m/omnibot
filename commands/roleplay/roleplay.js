@@ -125,7 +125,9 @@ module.exports = {
     )
     .addSubcommand(subcommand =>
       subcommand.setName("run").setDescription("Run away")
-    ),
+    )
+    .setIntegrationTypes([1])
+    .setContexts([0, 1, 2]),
 
   async execute(interaction) {
     const subcommand = interaction.options.getSubcommand();
