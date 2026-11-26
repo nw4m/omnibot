@@ -1,8 +1,7 @@
 # omnibot
 
-A personal Discord bot with roleplay, utility, and send commands.
+A personal Discord bot with roleplay and utility commands.
 
-by wisky = https://github.com/nw4m/omnibot | https://discord.gg/JRkD2gRbzT
 
 ---
 
@@ -53,12 +52,6 @@ All commands are owner-only.
 |---------|-------------|
 | `/avatar [user]` | Get the avatar and banner of a user |
 
-### send
-| Command | Description |
-|---------|-------------|
-| `/send <msg>` | Send a message |
-| `/spx <msg>` | Send a message with a send button |
-
 ### Roleplay
 | Command | Description |
 |---------|-------------|
@@ -95,14 +88,12 @@ All commands are owner-only.
 omnibot/
 ├── commands/
 │   ├── avatar.js
-│   ├── send.js
-│   ├── spx.js
 │   └── roleplay/
 │       └── ... (24 commands)
 ├── lib/
-│   ├── nekoHelper.js      # nekos.best API
-│   ├── gifHelper.js       # Giphy API
-│   └── roleplayHelper.js  # builds roleplay responses
+│   ├── nekoHelper.js
+│   ├── gifHelper.js
+│   └── roleplayHelper.js
 ├── index.js
 ├── .env
 └── .env.example
